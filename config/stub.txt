@@ -1,0 +1,10 @@
+read width:int height:int
+loop height read line:string(50)
+read startX:int startY:int
+read targetX:int targetY:int
+read switchCount:int
+loop switchCount read switchX:int switchY:int blockX:int blockY:int initialState:int
+write RRRRDDDDRRRRUUUULRUUUUUUUUUUUUUDDUDDDDDDDDDDDDDDDDLLLLUUUUUUUULLUULLRRDDRRDDDDDDDDLLLLLLUULLUUUULLUUUUUUL
+
+INPUT
+initialState: 1 if blocking, 0 otherwise

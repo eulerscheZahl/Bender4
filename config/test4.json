@@ -1,0 +1,9 @@
+{
+	"title": {
+		"2": "Introduction 4: RRD",
+		"1": "Exemple de cas de test"
+	},
+	"testIn": "10 10|##########|#        #|# ###### #|#  +     #|#### ### #|#  # ### #|# ##   # #|#  ### # #|#        #|##########|2 3|4 4|1|3 1 7 3 1",
+	"isTest": "true",
+	"isValidator": "false"
+}

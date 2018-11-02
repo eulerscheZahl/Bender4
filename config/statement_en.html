@@ -1,0 +1,170 @@
+<div class="statement-body">
+    <!-- STORY -->
+    <div class="statement-story" style="min-height: 0px">
+        Bender wants to visit his friend Fry. Unfortunately he's stuck in a maze and professor Farnsworth is experimenting with magnetic fields that Bender doesn't want to enter. Help Bender by giving him a plan how to esacpe the maze - but beware: because of
+        his movie
+        <!-- porn -->collection, there is only little space left on his disc for the program.
+    </div>
+    <!-- GOAL -->
+    <div class="statement-section statement-goal">
+        <h2>
+            <span class="icon icon-goal">&nbsp;</span>
+            <span>The Goal</span>
+        </h2>
+        <div class="statement-goal-content">
+            Help Bender to find a path to a given point inside the maze. Compress the path as much as possible. There are switches on the ground that Bender will toggle by entering their cell. These switches make other fields passable or inpassable.
+        </div>
+    </div>
+
+    <!-- RULES -->
+    <div class="statement-section statement-rules">
+        <h2>
+            <span class="icon icon-rules">&nbsp;</span>
+            <span>Rules</span>
+        </h2>
+        <div class="statement-rules-content">
+            You are given a maze with a starting and target point. Find a path through the maze. There are magnetic fields on some cells that have to be avoided. You can turn them off by hitting the corresponding switch.
+
+            <br><br>
+            <strong>Switches</strong> <br> A switch has a location of it's own as well as a location of the magnetic field it controls. Each time Bender enters the cell of the switch, he will toggle the state of the magnetic field, turning it on and off.
+
+            <br><br>
+            <strong>Boxes</strong> <br> A box is a movable wall. Bender can move them by walking into them, if there is no wall or another box behind. Is he moves a box on a switch, it will toggle the switch. If he moves a box on Fry, it will squash Fry
+            and kill him.
+
+            <br><br>
+            <strong>Movement</strong> <br> Bender can go in the four directions
+            <const>UP</const>,
+            <const>DOWN</const>,
+            <const>RIGHT</const> and
+            <const>LEFT</const>. In case he hits a wall, he just stays at the current position. An active magnetic field erases his entire harddisc.
+
+            <br><br>
+            <strong>Functions</strong> <br> To encode the path more efficently, you can define functions as sequences of moves. Functions can call other functions as well as themselves. Functions will be executed char by char. When there is no more char
+            left in the called function, the program will resume in the caller function, after the function call that was just performed.
+        </div>
+    </div>
+
+    <!-- Victory conditions -->
+    <div class="statement-victory-conditions">
+        <div class="icon victory"></div>
+        <div class="blk">
+            <div class="title">Victory Conditions</div>
+            <div class="text">
+                <ul style="padding-bottom: 0;">
+                    <li>
+                        Bender reaches the cell, where Fry is
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Lose conditions -->
+    <div class="statement-lose-conditions">
+        <div class="icon lose"></div>
+        <div class="blk">
+            <div class="title">Loss Conditions</div>
+            <div class="text">
+                <ul style="padding-bottom: 0;">
+                    <li>
+                        You enter a magnetic field.
+                    </li>
+                    <li>
+                        You don't reach Fry's cell within
+                        <const>1000</const> turns.
+                    </li>
+                    <li>
+                        You squash Fry with a box.
+                    </li>
+                    <li>
+                        You do not respond in time or output an unrecognized command.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <!-- PROTOCOL -->
+    <div class="statement-section statement-protocol">
+        <h2>
+            <span class="icon icon-protocol">&nbsp;</span>
+            <span>Game Input</span>
+        </h2>
+        <!-- Protocol block -->
+        <div class="blk">
+            <div class="text">
+
+                <span class="statement-lineno">First line</span>: the <var>width</var> and <var>height</var> of the maze
+                <br>
+                <span class="statement-lineno">Next <var>height</var> lines</span>: The board as strings of length <var>width</var>. The characters can be:
+                <ul>
+                    <li>
+                        <const>.</const>: empty cell <br></li>
+                    <li>
+                        <const>#</const>: wall<br></li>
+                    <li>
+                        <const>+</const>: box<br></li>
+                </ul>
+                <span class="statement-lineno">Next line</span>: <var>startX</var>, <var>startY</var>, the starting position
+                <span class="statement-lineno">Next line</span>: <var>targetX</var>, <var>targetY</var>, the target position
+                <span class="statement-lineno">Next line</span>: <var>switchCount</var>, the number of switches
+                <span class="statement-lineno">Next <var>switchCount</var> lines</span>: <var>switchX</var>, <var>switchY</var>, <var>blockX</var>, <var>blockY</var>, <var>initialState</var> <br>
+                <var>switchX</var>, <var>switchY</var> give the location of the switch, <var>blockX</var>, <var>blockY</var> define the location of the magnetic field.
+                <var>initialState</var> is either
+                <const>1</const> (initially on) or
+                <const>0</const> (initially off).
+            </div>
+
+            <div class="title">Output</div>
+            <div class="text">
+                Print one single line: the path that Bender shall take.
+                <br> Each character can be:
+                <ul style="padding-bottom: 0;">
+                    <li>
+                        <action>U</action> go up
+                    </li>
+                    <li>
+                        <action>D</action> go down
+                    </li>
+                    <li>
+                        <action>R</action> go right
+                    </li>
+                    <li>
+                        <action>L</action> go left
+                    </li>
+                    <li>
+                        <action>1</action>,
+                        <action>2</action>,...,
+                        <action>9</action> call function 1,2,...,9
+                    </li>
+                </ul>
+                To define functions, just append them, separated by a semicolon:
+                <action>initial code</action>;
+                <action>function 1</action>;
+                <action>function 2</action>.
+                <br><br> The solution will be scored by the length of the string, the shorter the better.
+            </div>
+        </div>
+
+        <!-- Protocol block -->
+        <div class="blk">
+            <div class="title">
+                Constraints
+            </div>
+            <div class="text">
+                <const>
+                    20
+                </const>
+                &le;
+                <var>
+                    width
+                </var>, <var>height</var> &le;
+                <const>
+                    50
+                </const>
+                <br>
+                <br> Response time &le;
+                <const>1000</const> ms
+            </div>
+        </div>
