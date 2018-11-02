@@ -2,6 +2,7 @@ package view;
 
 import Bender4.Board;
 import Bender4.Cell;
+import com.codingame.game.Referee;
 import com.codingame.gameengine.module.entities.*;
 
 public class BoardView {
@@ -39,9 +40,23 @@ public class BoardView {
                 innerGroup.add(sprite);
             }
         }
-        Sprite target = graphics.createSprite().setImage("target.png")
+
+        String[] fry = graphics.createSpriteSheetLoader()
+                .setSourceImage("Fry.png")
+                .setName("z")
+                .setWidth(CELL_SIZE)
+                .setHeight(CELL_SIZE)
+                .setImageCount(2)
+                .setImagesPerRow(1)
+                .setOrigCol(0)
+                .setOrigRow(0)
+                .load();
+        SpriteAnimation target = graphics.createSpriteAnimation().setImages(fry)
                 .setX(board.target.x * CELL_SIZE)
-                .setY(board.target.y * CELL_SIZE);
+                .setY(board.target.y * CELL_SIZE)
+                .setDuration(Referee.FRAME_DURATION)
+                .setLoop(true)
+                .setStarted(true);
         boardGroup.add(target);
     }
 
