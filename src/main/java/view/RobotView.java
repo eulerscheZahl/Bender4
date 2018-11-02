@@ -71,7 +71,6 @@ public class RobotView {
         if (robot.hitWall) {
             int dx = Cell.dx[robot.direction] * 20;
             int dy = Cell.dy[robot.direction] * 5;
-            System.err.println("dx: " + dx + "   dy: " + dy);
             sprite.setX(BoardView.CELL_SIZE * robot.cell.x + dx)
                     .setY(BoardView.CELL_SIZE * robot.cell.y + dy);
             graphics.commitEntityState(0.5, sprite);
