@@ -26,7 +26,7 @@ public class BoardView {
 
         boardGroup = graphics.createGroup();
         boardGroup.setScale(1080.0 / (board.height * CELL_SIZE));
-        functionsGroup = graphics.createGroup().setX(1080);
+        functionsGroup = graphics.createGroup().setX(1120);
         BufferedGroup gridGroup = graphics.createBufferedGroup();
         boardGroup.add(gridGroup);
         Group innerGroup = graphics.createGroup();

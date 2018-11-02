@@ -20,6 +20,7 @@ public class FunctionView {
     private static final int IMAGE_SIZE = 50;
 
     public FunctionView(Interpreter.FunctionExecution functionExecution, int depth, int name, Group functionsGroup, GraphicEntityModule graphics) {
+        if (depth > 13) return; // most likely infinite recursion, don't show that
         this.graphics = graphics;
         this.function = functionExecution;
         if (spriteSheet == null) {
@@ -35,7 +36,7 @@ public class FunctionView {
                     .load();
         }
 
-        functionGroup = graphics.createGroup().setY(50 + 100 * depth);
+        functionGroup = graphics.createGroup().setY(50 + 80 * depth);
         functionsGroup.add(functionGroup);
         bodyGroup = graphics.createGroup().setX(100);
         functionGroup.add(bodyGroup);

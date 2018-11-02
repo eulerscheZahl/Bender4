@@ -24,7 +24,7 @@ public class Agent1 {
             boolean blocking = scanner.nextInt() == 1;
         }
 
-        System.out.println("D782264L36LU4567659751178787112R8445944653U5URDR1D78221D7822965956;8D;7R;6U;5L;LL;UU;RR;DD;33");
+        System.out.println("crash");
         // System.out.println("RRD");
     }
 }
