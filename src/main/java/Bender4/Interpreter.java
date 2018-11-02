@@ -1,5 +1,7 @@
 package Bender4;
 
+import com.codingame.game.Player;
+import com.codingame.gameengine.core.SoloGameManager;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Group;
 import view.FunctionView;
@@ -20,7 +22,7 @@ public class Interpreter {
         calls.push(new FunctionExecution(functions[0], calls.size(), 0));
     }
 
-    public void step(Robot robot) {
+    public void step(Robot robot, SoloGameManager<Player> gameManager) {
         if (calls.isEmpty()) {
             hasCommandsLeft = false;
             return;
@@ -34,7 +36,12 @@ public class Interpreter {
         char execute = current.step();
         robot.move(execute);
         if (execute >= '1' && execute <= '9') { // call a function
-            calls.push(new FunctionExecution(functions[execute - '0'], calls.size(), execute - '0'));
+            int functionIndex = execute - '0';
+            if (functions.length <= functionIndex) {
+                gameManager.loseGame("Call to non-existing function " + functionIndex);
+                return;
+            }
+            calls.push(new FunctionExecution(functions[functionIndex], calls.size(), functionIndex));
         }
     }
 

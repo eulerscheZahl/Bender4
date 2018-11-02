@@ -96,6 +96,6 @@ public class Referee extends AbstractReferee {
             gameManager.loseGame("Invalid path");
             return;
         }
-        interpreter.step(robot);
+        interpreter.step(robot, gameManager);
     }
 }

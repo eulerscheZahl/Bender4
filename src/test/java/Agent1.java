@@ -24,7 +24,7 @@ public class Agent1 {
             boolean blocking = scanner.nextInt() == 1;
         }
 
-        System.out.println("crash");
+        System.out.println("1");
         // System.out.println("RRD");
     }
 }
