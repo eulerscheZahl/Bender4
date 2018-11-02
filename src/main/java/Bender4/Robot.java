@@ -6,12 +6,14 @@ public class Robot {
     public Cell cell;
     public RobotView view;
     public int direction = 0;
+    public boolean hitWall = false;
 
     public Robot(Board board, int x, int y) {
         this.cell = board.grid[x][y];
     }
 
     public void move(char execute) {
+        hitWall = false;
         Cell next = cell;
         int dir = -1;
         for (int i = 0; i < Cell.directions.length; i++) {
@@ -22,6 +24,7 @@ public class Robot {
         }
         if (dir != -1) next = cell.neighbors[dir];
         if (next.isWall || next.hasBox() && !next.box.canPush(cell)) {
+            hitWall = true;
             view.move();
             return;
         }
