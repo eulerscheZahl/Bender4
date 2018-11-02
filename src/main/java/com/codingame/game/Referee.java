@@ -21,9 +21,11 @@ public class Referee extends AbstractReferee {
     private Robot robot;
     private BoardView view;
 
+    public static final int FRAME_DURATION = 500;
+
     @Override
     public void init() {
-        gameManager.setFrameDuration(500);
+        gameManager.setFrameDuration(FRAME_DURATION);
         gameManager.setMaxTurns(1000);
 
         String[] input = gameManager.getTestCaseInput().get(0).split("\\|");
