@@ -6,7 +6,7 @@ public class Main {
 
         gameRunner.setAgent(Agent1.class);
 
-        gameRunner.setTestCase("test5.json");
+        gameRunner.setTestCase("test7.json");
 
 
         // Another way to add a player

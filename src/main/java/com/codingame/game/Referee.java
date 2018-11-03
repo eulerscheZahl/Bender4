@@ -58,22 +58,25 @@ public class Referee extends AbstractReferee {
         new RobotView(view.boardGroup, robot, graphicEntityModule);
     }
 
-    Interpreter interpreter;
-    boolean finished = false;
+    private Interpreter interpreter;
+    private boolean finished = false;
+    private String loseMessage = null;
 
     @Override
     public void gameTurn(int turn) {
+        if (loseMessage != null) {
+            gameManager.loseGame(loseMessage);
+            return;
+        }
         if (finished) {
             gameManager.winGame("Bender reached Fry");
             return;
         }
         if (robot.cell.hasSwitch() && robot.cell.sw.isBlocking && robot.cell.sw.blockingPos == robot.cell) {
-            gameManager.loseGame("Bender entered a magnetic field");
-            return;
+            if (loseMessage == null) loseMessage = "Bender entered a magnetic field";
         }
         if (board.target.hasBox()) {
-            gameManager.loseGame("Fry was squashed by a box");
-            return;
+            if (loseMessage == null) loseMessage = "Fry was squashed by a box";
         }
         if (robot.cell == board.target) finished = true;
         Player player = gameManager.getPlayer();
