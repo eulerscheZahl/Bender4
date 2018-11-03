@@ -32,6 +32,8 @@ public class RobotView {
                 .setOrigRow(0)
                 .load();
 
+
+
         String[] sparkSheet = graphics.createSpriteSheetLoader()
                 .setSourceImage("spark.png")
                 .setName("x")
@@ -62,7 +64,26 @@ public class RobotView {
         boardGroup.add(spark);
     }
 
+    private boolean dead = false;
+    public void kill() {
+        dead = true;
+        String[] fieldDeathSheet = graphics.createSpriteSheetLoader()
+                .setSourceImage("benderDeath.png")
+                .setName("c")
+                .setWidth(BoardView.CELL_SIZE)
+                .setHeight(BoardView.CELL_SIZE)
+                .setImageCount(6)
+                .setImagesPerRow(6)
+                .setOrigCol(0)
+                .setOrigRow(0)
+                .load();
+        sprite.setImages(fieldDeathSheet).start();
+        graphics.commitEntityState(0, sprite);
+        sprite.setLoop(false);
+    }
+
     public void move() {
+        if (dead) return;
         if (robot.direction != lastDir) {
             sprite.setImages(new String[]{spriteSheet[robot.direction], spriteSheet[robot.direction + 4]});
             graphics.commitEntityState(0, sprite);
