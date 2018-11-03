@@ -53,7 +53,7 @@ public class Referee extends AbstractReferee {
             new SwitchView(board, view.boardGroup, s, graphicEntityModule);
         }
         for (Box b : board.boxes) {
-            new BoxView(view.boardGroup, b, graphicEntityModule);
+            new BoxView(board, view.boardGroup, b, graphicEntityModule);
         }
         new RobotView(view.boardGroup, robot, graphicEntityModule);
     }
