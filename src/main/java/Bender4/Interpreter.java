@@ -59,11 +59,13 @@ public class Interpreter {
         public void delay() {
             position--;
             view.delay = true;
+            view.pause();
         }
 
         public void resume() {
             position++;
             view.step();
+            view.resume();
         }
 
         public boolean terminate() {

@@ -34,14 +34,19 @@ public class BoardView {
         gridGroup.add(innerGroup);
 
         Sprite background = graphics.createSprite().setImage("frame.png").setX(-40).setZIndex(-1);
+        Sprite backgroundTop = graphics.createSprite().setImage("frameTop.png").setX(-40).setZIndex(3);
         functionsGroup.add(background);
+        functionsGroup.add(backgroundTop);
 
         for (int x = 0; x < board.width; x++) {
             for (int y = 0; y < board.height; y++) {
-                Sprite sprite = graphics.createSprite().setX(x * CELL_SIZE).setY(y * CELL_SIZE);
-                if (board.grid[x][y].isWall) sprite.setImage(selectWall(board.grid, board.width, board.height, x, y));
-                else sprite.setImage("floor.png");
+                Sprite sprite = graphics.createSprite().setX(x * CELL_SIZE).setY(y * CELL_SIZE).setImage("floor.png");
                 innerGroup.add(sprite);
+                if (board.grid[x][y].isWall) {
+                    sprite = graphics.createSprite().setX(x * CELL_SIZE).setY(y * CELL_SIZE);
+                    sprite.setImage(selectWall(board.grid, board.width, board.height, x, y));
+                    innerGroup.add(sprite);
+                }
             }
         }
 
