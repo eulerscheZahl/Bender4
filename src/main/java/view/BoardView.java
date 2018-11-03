@@ -35,8 +35,10 @@ public class BoardView {
 
         Sprite background = graphics.createSprite().setImage("frame.png").setX(-40).setZIndex(-1);
         Sprite backgroundTop = graphics.createSprite().setImage("frameTop.png").setX(-40).setZIndex(3);
+        Sprite zoidberg = graphics.createSprite().setImage("Zoidberg.png").setX(40).setY(100).setAlpha(0.05).setZIndex(3);
         functionsGroup.add(background);
         functionsGroup.add(backgroundTop);
+        functionsGroup.add(zoidberg);
 
         for (int x = 0; x < board.width; x++) {
             for (int y = 0; y < board.height; y++) {
