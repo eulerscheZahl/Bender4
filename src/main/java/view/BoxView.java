@@ -3,9 +3,11 @@ package view;
 import Bender4.Board;
 import Bender4.Box;
 import Bender4.Cell;
+import com.codingame.game.Referee;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Group;
 import com.codingame.gameengine.module.entities.Sprite;
+import com.codingame.gameengine.module.entities.SpriteAnimation;
 
 public class BoxView {
     private Box box;
@@ -33,13 +35,30 @@ public class BoxView {
 
     public void update() {
         if (board.target == box.cell) {
-            Sprite death = graphics.createSprite().setImage("FryDead.png")
+            String[] spriteSheet = graphics.createSpriteSheetLoader()
+                    .setSourceImage("FryDead.png")
+                    .setName("d")
+                    .setWidth(49)
+                    .setHeight(48)
+                    .setImageCount(2)
+                    .setImagesPerRow(2)
+                    .setOrigCol(0)
+                    .setOrigRow(0)
+                    .load();
+
+            SpriteAnimation death = graphics.createSpriteAnimation()
+                    .setImages(spriteSheet)
                     .setX(box.cell.x * BoardView.CELL_SIZE)
                     .setY(box.cell.y * BoardView.CELL_SIZE)
-                    .setAlpha(0);
+                    .setDuration(Referee.FRAME_DURATION)
+                    .setLoop(false)
+                    .setStarted(true);
+
             boardGroup.add(death);
-            graphics.commitEntityState(0.7, death);
+            death.setAlpha(0);
+            graphics.commitEntityState(0.9, boardGroup, death);
             death.setAlpha(1);
+            graphics.commitEntityState(1, death);
         }
 
         sprite.setAlpha(0.9999); // minimal change to force the commit
@@ -50,6 +69,7 @@ public class BoxView {
         sprite.setX(box.cell.x * BoardView.CELL_SIZE + BoardView.CELL_SIZE / 2)
                 .setY(box.cell.y * BoardView.CELL_SIZE + BoardView.CELL_SIZE / 2);
         sprite.setAlpha(1);
+        graphics.commitEntityState(0.9, sprite);
 
         location = box.cell;
     }
