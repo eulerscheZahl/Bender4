@@ -68,6 +68,7 @@ public class FunctionView {
             delay = false;
             return;
         }
+        if (bodyGroup == null) return;
         bodyGroup.setX(bodyGroup.getX() - (IMAGE_SIZE + 2));
         Sprite action = actions.pollFirst();
         if (offset >= function.function.length()) {
