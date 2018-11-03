@@ -5,7 +5,7 @@ import view.RobotView;
 public class Robot {
     public Cell cell;
     public RobotView view;
-    public int direction = 0;
+    public int direction = 1;
     public boolean hitWall = false;
 
     public Robot(Board board, int x, int y) {

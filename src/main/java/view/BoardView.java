@@ -32,6 +32,10 @@ public class BoardView {
         boardGroup.add(gridGroup);
         Group innerGroup = graphics.createGroup();
         gridGroup.add(innerGroup);
+
+        Sprite background = graphics.createSprite().setImage("frame.png").setX(-40).setZIndex(-1);
+        functionsGroup.add(background);
+
         for (int x = 0; x < board.width; x++) {
             for (int y = 0; y < board.height; y++) {
                 Sprite sprite = graphics.createSprite().setX(x * CELL_SIZE).setY(y * CELL_SIZE);

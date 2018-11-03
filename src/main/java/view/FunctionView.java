@@ -36,18 +36,20 @@ public class FunctionView {
                     .load();
         }
 
-        functionGroup = graphics.createGroup().setY(50 + 80 * depth);
+        Sprite frame = graphics.createSprite().setImage("functionbox.png").setX(-20).setY(30 + 100 * depth).setZIndex(1);
+        functionsGroup.add(frame);
+        functionGroup = graphics.createGroup().setY(50 + 100 * depth);
         functionsGroup.add(functionGroup);
         bodyGroup = graphics.createGroup().setX(100);
         functionGroup.add(bodyGroup);
 
-        Sprite nameSprite = graphics.createSprite().setImage(spriteSheet[name]);
+        Sprite nameSprite = graphics.createSprite().setImage(spriteSheet[name]).setX(-1).setY(-1);
         functionGroup.add(nameSprite);
 
         while (actions.size() < ACTIONS_SHOWN && offset < function.function.length()) {
             Sprite sprite = graphics.createSprite();
             setImage(sprite, function.function.charAt(offset));
-            sprite.setX((IMAGE_SIZE + 2) * offset);
+            sprite.setX((IMAGE_SIZE + 2) * offset - 1).setY(-1);
             bodyGroup.add(sprite);
             actions.add(sprite);
             offset++;
@@ -74,7 +76,7 @@ public class FunctionView {
         if (offset >= function.function.length()) {
             action.setAlpha(0);
         } else {
-            action.setX((IMAGE_SIZE + 2) * offset);
+            action.setX((IMAGE_SIZE + 2) * offset - 1);
             graphics.commitEntityState(0, action);
             setImage(action, function.function.charAt(offset));
         }
