@@ -21,44 +21,16 @@ public class RobotView {
         robot.view = this;
         this.graphics = graphics;
 
-        spriteSheet = graphics.createSpriteSheetLoader()
-                .setSourceImage("bender.png")
-                .setName("b")
-                .setWidth(BoardView.CELL_SIZE)
-                .setHeight(BoardView.CELL_SIZE)
-                .setImageCount(8)
-                .setImagesPerRow(4)
-                .setOrigCol(0)
-                .setOrigRow(0)
-                .load();
+        spriteSheet = Utils.loadSheet(graphics, "bender.png", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 8, 4);
+        String[] sparkSheet = Utils.loadSheet(graphics, "spark.png", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 2, 1);
 
-
-
-        String[] sparkSheet = graphics.createSpriteSheetLoader()
-                .setSourceImage("spark.png")
-                .setName("x")
-                .setWidth(BoardView.CELL_SIZE)
-                .setHeight(BoardView.CELL_SIZE)
-                .setImageCount(2)
-                .setImagesPerRow(1)
-                .setOrigCol(0)
-                .setOrigRow(0)
-                .load();
-
-        sprite = graphics.createSpriteAnimation()
-                .setImages(new String[] {spriteSheet[1], spriteSheet[5]})
+        sprite = Utils.createAnimation(graphics, new String[]{spriteSheet[1], spriteSheet[5]})
                 .setX(BoardView.CELL_SIZE * robot.cell.x)
-                .setY(BoardView.CELL_SIZE * robot.cell.y)
-                .setDuration(Referee.FRAME_DURATION)
-                .setLoop(true)
-                .setStarted(true);
+                .setY(BoardView.CELL_SIZE * robot.cell.y);
 
-        spark = graphics.createSpriteAnimation()
-                .setImages(sparkSheet)
+        spark = Utils.createAnimation(graphics, sparkSheet)
                 .setDuration(Referee.FRAME_DURATION / 4)
-                .setLoop(true)
-                .setStarted(true);
-        spark.setAlpha(0);
+                .setAlpha(0);
 
         boardGroup.add(sprite);
         boardGroup.add(spark);
@@ -67,16 +39,7 @@ public class RobotView {
     private boolean dead = false;
     public void kill() {
         dead = true;
-        String[] fieldDeathSheet = graphics.createSpriteSheetLoader()
-                .setSourceImage("benderDeath.png")
-                .setName("c")
-                .setWidth(BoardView.CELL_SIZE)
-                .setHeight(BoardView.CELL_SIZE)
-                .setImageCount(6)
-                .setImagesPerRow(6)
-                .setOrigCol(0)
-                .setOrigRow(0)
-                .load();
+        String[] fieldDeathSheet = Utils.loadSheet(graphics, "benderDeath.png", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 6, 6);
         sprite.setImages(fieldDeathSheet).start();
         graphics.commitEntityState(0, sprite);
         sprite.setLoop(false);

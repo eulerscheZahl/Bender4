@@ -24,48 +24,18 @@ public class SwitchView {
         this.sw = sw;
         sw.view = this;
 
-        if (spriteSheet == null) {
-            fieldSheet = graphics.createSpriteSheetLoader()
-                    .setSourceImage("coil.png")
-                    .setName("s")
-                    .setWidth(48)
-                    .setHeight(48)
-                    .setImageCount(4)
-                    .setImagesPerRow(2)
-                    .setOrigCol(0)
-                    .setOrigRow(0)
-                    .load();
-            spriteSheet = graphics.createSpriteSheetLoader()
-                    .setSourceImage("switch.png")
-                    .setName("t")
-                    .setWidth(48)
-                    .setHeight(48)
-                    .setImageCount(2)
-                    .setImagesPerRow(1)
-                    .setOrigCol(0)
-                    .setOrigRow(0)
-                    .load();
-        }
+        fieldSheet = Utils.loadSheet(graphics, "coil.png", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 4, 2);
+        spriteSheet = Utils.loadSheet(graphics, "switch.png", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 2, 1);
 
-        switchSprite = graphics.createSprite().setImage(spriteSheet[sw.isBlocking ? 1 : 0])
-                .setX(BoardView.CELL_SIZE * sw.switchPos.x)
-                .setY(BoardView.CELL_SIZE * sw.switchPos.y)
+        switchSprite = Utils.createBoardSprite(graphics, spriteSheet[sw.isBlocking ? 1 : 0], sw.switchPos.x, sw.switchPos.y)
                 .setTint(colorPalette[sw.switchID]);
-        fieldSprite = graphics.createSpriteAnimation()
-                .setImages(new String[] {fieldSheet[0], fieldSheet[1]})
-                .setX(BoardView.CELL_SIZE * sw.blockingPos.x)
-                .setY(BoardView.CELL_SIZE * sw.blockingPos.y)
-                .setTint(colorPalette[sw.switchID])
-                .setDuration(Referee.FRAME_DURATION)
-                .setLoop(true)
-                .setStarted(true);
-        Sprite coilFoot = graphics.createSprite().setImage(fieldSheet[3])
+        fieldSprite = Utils.createAnimation(graphics, new String[] {fieldSheet[0], fieldSheet[1]})
                 .setX(BoardView.CELL_SIZE * sw.blockingPos.x)
                 .setY(BoardView.CELL_SIZE * sw.blockingPos.y)
                 .setTint(colorPalette[sw.switchID]);
-        Sprite coilHead = graphics.createSprite().setImage(fieldSheet[2])
-                .setX(BoardView.CELL_SIZE * sw.blockingPos.x)
-                .setY(BoardView.CELL_SIZE * sw.blockingPos.y);
+        Sprite coilFoot = Utils.createBoardSprite(graphics, fieldSheet[3], sw.blockingPos.x, sw.blockingPos.y)
+                .setTint(colorPalette[sw.switchID]);
+        Sprite coilHead = Utils.createBoardSprite(graphics, fieldSheet[2], sw.blockingPos.x, sw.blockingPos.y);
 
         boardGroup.add(switchSprite);
         boardGroup.add(fieldSprite);

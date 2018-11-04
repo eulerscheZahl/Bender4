@@ -14,16 +14,7 @@ public class BoardView {
 
     public BoardView(Board board, GraphicEntityModule graphics) {
         this.board = board;
-        wallSprites = graphics.createSpriteSheetLoader()
-                .setSourceImage("walls.png")
-                .setName("w")
-                .setWidth(CELL_SIZE)
-                .setHeight(CELL_SIZE)
-                .setImageCount(16)
-                .setImagesPerRow(4)
-                .setOrigCol(0)
-                .setOrigRow(0)
-                .load();
+        wallSprites = Utils.loadSheet(graphics, "walls.png", CELL_SIZE, CELL_SIZE, 16, 4);
 
         boardGroup = graphics.createGroup();
         boardGroup.setScale(1080.0 / (board.height * CELL_SIZE));
@@ -35,39 +26,27 @@ public class BoardView {
 
         Sprite background = graphics.createSprite().setImage("frame.png").setX(-40).setZIndex(-1);
         Sprite backgroundTop = graphics.createSprite().setImage("frameTop.png").setX(-40).setZIndex(3);
-        Sprite zoidberg = graphics.createSprite().setImage("Zoidberg.png").setX(40).setY(100).setAlpha(0.05).setZIndex(3);
+
+        Sprite zoidberg = graphics.createSprite().setImage("Zoidberg.png").setX(55).setY(130).setAlpha(0.05).setZIndex(3);
         functionsGroup.add(background);
         functionsGroup.add(backgroundTop);
         functionsGroup.add(zoidberg);
 
         for (int x = 0; x < board.width; x++) {
             for (int y = 0; y < board.height; y++) {
-                Sprite sprite = graphics.createSprite().setX(x * CELL_SIZE).setY(y * CELL_SIZE).setImage("floor.png");
-                innerGroup.add(sprite);
+                Sprite floor = Utils.createBoardSprite(graphics, "floor.png", x, y);
+                innerGroup.add(floor);
                 if (board.grid[x][y].isWall) {
-                    sprite = graphics.createSprite().setX(x * CELL_SIZE).setY(y * CELL_SIZE);
-                    sprite.setImage(selectWall(board.grid, board.width, board.height, x, y));
-                    innerGroup.add(sprite);
+                   Sprite wall = Utils.createBoardSprite(graphics, selectWall(board.grid, board.width, board.height, x, y), x, y);
+                   innerGroup.add(wall);
                 }
             }
         }
 
-        String[] fry = graphics.createSpriteSheetLoader()
-                .setSourceImage("Fry.png")
-                .setName("z")
-                .setWidth(CELL_SIZE)
-                .setHeight(CELL_SIZE)
-                .setImageCount(2)
-                .setImagesPerRow(1)
-                .setOrigCol(0)
-                .setOrigRow(0)
-                .load();
-        SpriteAnimation target = graphics.createSpriteAnimation().setImages(fry)
+        String[] fry = Utils.loadSheet(graphics, "Fry.png", CELL_SIZE, CELL_SIZE, 2, 1);
+        SpriteAnimation target = Utils.createAnimation(graphics, fry)
                 .setX(board.target.x * CELL_SIZE)
-                .setY(board.target.y * CELL_SIZE)
-                .setDuration(Referee.FRAME_DURATION)
-                .setLoop(true)
-                .setStarted(true);
+                .setY(board.target.y * CELL_SIZE);
         boardGroup.add(target);
     }
 

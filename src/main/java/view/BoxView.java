@@ -35,24 +35,12 @@ public class BoxView {
 
     public void update() {
         if (board.target == box.cell) {
-            String[] spriteSheet = graphics.createSpriteSheetLoader()
-                    .setSourceImage("FryDead.png")
-                    .setName("d")
-                    .setWidth(49)
-                    .setHeight(48)
-                    .setImageCount(2)
-                    .setImagesPerRow(2)
-                    .setOrigCol(0)
-                    .setOrigRow(0)
-                    .load();
+            String[] spriteSheet = Utils.loadSheet(graphics, "FryDead.png", BoardView.CELL_SIZE + 1, BoardView.CELL_SIZE, 2, 2);
 
-            SpriteAnimation death = graphics.createSpriteAnimation()
-                    .setImages(spriteSheet)
+            SpriteAnimation death = Utils.createAnimation(graphics, spriteSheet)
                     .setX(box.cell.x * BoardView.CELL_SIZE)
                     .setY(box.cell.y * BoardView.CELL_SIZE)
-                    .setDuration(Referee.FRAME_DURATION)
-                    .setLoop(false)
-                    .setStarted(true);
+                    .setLoop(false);
 
             boardGroup.add(death);
             death.setAlpha(0);

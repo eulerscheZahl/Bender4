@@ -27,33 +27,10 @@ public class FunctionView {
         if (depth >= 7) return; // most likely infinite recursion, don't show that
         this.graphics = graphics;
         this.function = functionExecution;
-        if (spriteSheet == null) {
-            spriteSheet = graphics.createSpriteSheetLoader()
-                    .setSourceImage("functions.png")
-                    .setName("f")
-                    .setWidth(IMAGE_SIZE)
-                    .setHeight(IMAGE_SIZE)
-                    .setImageCount(2 * 10)
-                    .setImagesPerRow(10)
-                    .setOrigCol(0)
-                    .setOrigRow(0)
-                    .load();
-            functionSheet = graphics.createSpriteSheetLoader()
-                    .setSourceImage("functionbox.png")
-                    .setName("g")
-                    .setWidth(630)
-                    .setHeight(88)
-                    .setImageCount(2)
-                    .setImagesPerRow(1)
-                    .setOrigCol(0)
-                    .setOrigRow(0)
-                    .load();
-        }
+        spriteSheet = Utils.loadSheet(graphics, "functions.png", IMAGE_SIZE, IMAGE_SIZE, 14, 10);
+        functionSheet = Utils.loadSheet(graphics, "functionbox.png", 630, 88, 2, 1);
 
-        frame = graphics.createSpriteAnimation().setImages(functionSheet).setX(50).setY(80 + 100 * depth).setZIndex(1)
-                .setDuration(Referee.FRAME_DURATION)
-                .setLoop(true)
-                .setStarted(true);
+        frame = Utils.createAnimation(graphics, functionSheet).setX(50).setY(80 + 100 * depth).setZIndex(1);
         functionsGroup.add(frame);
         functionGroup = graphics.createGroup().setX(80).setY(100 + 100 * depth);
         functionsGroup.add(functionGroup);
