@@ -25,7 +25,7 @@ public class BoardView {
         Group innerGroup = graphics.createGroup();
         gridGroup.add(innerGroup);
 
-        Sprite background = graphics.createSprite().setImage("frame.png").setX(-40).setZIndex(-1);
+        Sprite background = graphics.createSprite().setImage("frame.png").setX(-40).setZIndex(-1).setAlpha(0.3);
         Sprite backgroundTop = graphics.createSprite().setImage("frameTop.png").setX(-40).setZIndex(3);
 
         Sprite zoidberg = graphics.createSprite().setImage("Zoidberg.png").setX(55).setY(130).setAlpha(0.05).setZIndex(3);
