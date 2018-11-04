@@ -53,9 +53,9 @@ public class FunctionView {
     private void setImage(Sprite sprite, char c) {
         if (c >= '1' && c <= '9') sprite.setImage(spriteSheet[c - '0']);
         if (c == 'U') sprite.setImage(spriteSheet[10]);
-        if (c == 'D') sprite.setImage(spriteSheet[11]);
-        if (c == 'R') sprite.setImage(spriteSheet[12]);
-        if (c == 'L') sprite.setImage(spriteSheet[13]);
+        if (c == 'L') sprite.setImage(spriteSheet[11]);
+        if (c == 'D') sprite.setImage(spriteSheet[12]);
+        if (c == 'R') sprite.setImage(spriteSheet[13]);
     }
 
     public boolean delay = false;

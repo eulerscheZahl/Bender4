@@ -29,18 +29,18 @@ public class SwitchView {
 
         switchSprite = Utils.createBoardSprite(graphics, spriteSheet[sw.isBlocking ? 1 : 0], sw.switchPos.x, sw.switchPos.y)
                 .setTint(colorPalette[sw.switchID]);
+        Sprite coilFoot = Utils.createBoardSprite(graphics, fieldSheet[3], sw.blockingPos.x, sw.blockingPos.y)
+                .setTint(colorPalette[sw.switchID]);
+        Sprite coilHead = Utils.createBoardSprite(graphics, fieldSheet[2], sw.blockingPos.x, sw.blockingPos.y);
         fieldSprite = Utils.createAnimation(graphics, new String[] {fieldSheet[0], fieldSheet[1]})
                 .setX(BoardView.CELL_SIZE * sw.blockingPos.x)
                 .setY(BoardView.CELL_SIZE * sw.blockingPos.y)
                 .setTint(colorPalette[sw.switchID]);
-        Sprite coilFoot = Utils.createBoardSprite(graphics, fieldSheet[3], sw.blockingPos.x, sw.blockingPos.y)
-                .setTint(colorPalette[sw.switchID]);
-        Sprite coilHead = Utils.createBoardSprite(graphics, fieldSheet[2], sw.blockingPos.x, sw.blockingPos.y);
 
         boardGroup.add(switchSprite);
-        boardGroup.add(fieldSprite);
         boardGroup.add(coilFoot);
         boardGroup.add(coilHead);
+        boardGroup.add(fieldSprite);
 
         fieldSprite.setAlpha(sw.isBlocking ? 1 : 0);
     }
