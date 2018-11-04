@@ -6,15 +6,16 @@ import com.codingame.game.Referee;
 import com.codingame.gameengine.module.entities.*;
 
 public class BoardView {
-    private Board board;
+    private GraphicEntityModule graphics;
     public static final int CELL_SIZE = 48;
     public Group boardGroup;
     public Group functionsGroup;
     private static String[] wallSprites;
+    private SpriteAnimation fry;
 
     public BoardView(Board board, GraphicEntityModule graphics) {
-        this.board = board;
         wallSprites = Utils.loadSheet(graphics, "walls.png", CELL_SIZE, CELL_SIZE, 16, 4);
+        this.graphics = graphics;
 
         boardGroup = graphics.createGroup();
         boardGroup.setScale(1080.0 / (board.height * CELL_SIZE));
@@ -43,11 +44,20 @@ public class BoardView {
             }
         }
 
-        String[] fry = Utils.loadSheet(graphics, "Fry.png", CELL_SIZE, CELL_SIZE, 2, 1);
-        SpriteAnimation target = Utils.createAnimation(graphics, fry)
+        String[] frySheet = Utils.loadSheet(graphics, "Fry.png", CELL_SIZE, CELL_SIZE, 2, 1);
+        fry = Utils.createAnimation(graphics, frySheet)
                 .setX(board.target.x * CELL_SIZE)
                 .setY(board.target.y * CELL_SIZE);
-        boardGroup.add(target);
+        boardGroup.add(fry);
+    }
+
+    public void win() {
+        String[] victorySheet = Utils.loadSheet(graphics, "FryVictory.png", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 5, 5);
+        fry.setImages(victorySheet).setDuration(Referee.FRAME_DURATION * 2).stop().setLoop(false);
+        fry.setX(fry.getX() - 5);
+        graphics.commitEntityState(0.101, fry);
+        fry.start();
+        graphics.commitEntityState(0.102, fry);
     }
 
     private static String selectWall(Cell[][] grid, int width, int height, int x, int y) {
