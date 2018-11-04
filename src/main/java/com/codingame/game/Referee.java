@@ -60,32 +60,37 @@ public class Referee extends AbstractReferee {
 
     private Interpreter interpreter;
     private boolean finished = false;
-    private String loseMessage = null;
-    private  boolean extend = false;
+    private String gameMessage = null;
+    private int extend = 0;
+    private boolean lost = false;
 
     @Override
     public void gameTurn(int turn) {
-        if (loseMessage != null) {
-            if (extend) {
-                extend = false;
+        if (gameMessage != null) {
+            if (extend > 0) {
+                extend--;
             } else {
-                gameManager.loseGame(loseMessage);
+                if (lost) gameManager.loseGame(gameMessage);
+                else gameManager.winGame(gameMessage);
                 return;
             }
         }
-        if (loseMessage == null && finished) {
-            gameManager.winGame("Bender reached Fry");
+        if (gameMessage == null && finished) {
+            gameMessage = "Bender reached Fry";
+            extend = 1;
+            gameManager.setFrameDuration(4 * FRAME_DURATION);
+            robot.view.win();
             return;
-        }
-        if (robot.cell.hasSwitch() && robot.cell.sw.isBlocking && robot.cell.sw.blockingPos == robot.cell) {
-            if (loseMessage == null) {
-                loseMessage = "Bender entered a magnetic field";
-                extend = true;
+        } else if (robot.cell.hasSwitch() && robot.cell.sw.isBlocking && robot.cell.sw.blockingPos == robot.cell) {
+            if (gameMessage == null) {
+                gameMessage = "Bender entered a magnetic field";
+                extend = 1;
+                lost = true;
                 robot.view.kill();
             }
-        }
-        if (board.target.hasBox()) {
-            if (loseMessage == null) loseMessage = "Fry was squashed by a box";
+        } else if (board.target.hasBox()) {
+            if (gameMessage == null) gameMessage = "Fry was squashed by a box";
+            lost = true;
         }
         if (robot.cell == board.target) finished = true;
         Player player = gameManager.getPlayer();

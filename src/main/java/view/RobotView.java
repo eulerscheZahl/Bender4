@@ -45,6 +45,16 @@ public class RobotView {
         sprite.setLoop(false);
     }
 
+    public void win() {
+        String[] victorySheet = Utils.loadSheet(graphics, "benderVictory.png", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 12, 4);
+        sprite.setX(sprite.getX() + 14);
+        graphics.commitEntityState(0.1, sprite);
+        sprite.setImages(victorySheet).setDuration(Referee.FRAME_DURATION * 4).stop().setLoop(false);
+        graphics.commitEntityState(0.101, sprite);
+        sprite.start();
+        graphics.commitEntityState(0.102, sprite);
+    }
+
     public void move() {
         if (dead) return;
         if (robot.direction != lastDir) {
