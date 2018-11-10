@@ -4,6 +4,10 @@ import Bender4.Board;
 import Bender4.Cell;
 import com.codingame.game.Referee;
 import com.codingame.gameengine.module.entities.*;
+import modules.TooltipModule;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class BoardView {
     private GraphicEntityModule graphics;
@@ -13,9 +17,10 @@ public class BoardView {
     private static String[] wallSprites;
     private SpriteAnimation fry;
 
-    public BoardView(Board board, GraphicEntityModule graphics) {
+    public BoardView(Board board, GraphicEntityModule graphics, TooltipModule tooltip) {
         wallSprites = Utils.loadSheet(graphics, "walls.png", CELL_SIZE, CELL_SIZE, 16, 4);
         this.graphics = graphics;
+        tooltip.setSize(board.width);
 
         boardGroup = graphics.createGroup();
         boardGroup.setScale(1080.0 / (board.height * CELL_SIZE));
@@ -25,18 +30,18 @@ public class BoardView {
         Group innerGroup = graphics.createGroup();
         gridGroup.add(innerGroup);
 
-        Sprite background = graphics.createSprite().setImage("frame.png").setX(-40).setZIndex(-1).setAlpha(0.3);
+        Sprite background = graphics.createSprite().setImage("frame.png").setX(-40).setZIndex(-1);
         Sprite backgroundTop = graphics.createSprite().setImage("frameTop.png").setX(-40).setZIndex(3);
 
         Sprite zoidberg = graphics.createSprite().setImage("Zoidberg.png").setX(55).setY(130).setAlpha(0.05).setZIndex(3);
         functionsGroup.add(background);
         functionsGroup.add(backgroundTop);
         functionsGroup.add(zoidberg);
+        Sprite floor = Utils.createBoardSprite(graphics, "fullFloor.png", 0, 0).setZIndex(-2);
+        innerGroup.add(floor);
 
         for (int x = 0; x < board.width; x++) {
             for (int y = 0; y < board.height; y++) {
-                Sprite floor = Utils.createBoardSprite(graphics, "floor.png", x, y);
-                innerGroup.add(floor);
                 if (board.grid[x][y].isWall) {
                    Sprite wall = Utils.createBoardSprite(graphics, selectWall(board.grid, board.width, board.height, x, y), x, y);
                    innerGroup.add(wall);
@@ -49,6 +54,11 @@ public class BoardView {
                 .setX(board.target.x * CELL_SIZE)
                 .setY(board.target.y * CELL_SIZE);
         boardGroup.add(fry);
+        Map<String, Object> params = new HashMap<>();
+        params.put("Type", "Fry");
+        params.put("X", String.valueOf(board.target.x));
+        params.put("Y", String.valueOf(board.target.y));
+        tooltip.registerEntity(fry, params);
     }
 
     public void win() {

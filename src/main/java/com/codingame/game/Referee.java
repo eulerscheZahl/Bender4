@@ -5,17 +5,19 @@ import com.codingame.gameengine.core.AbstractReferee;
 import com.codingame.gameengine.core.SoloGameManager;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.google.inject.Inject;
+import modules.TooltipModule;
 import view.BoardView;
 import view.BoxView;
 import view.RobotView;
 import view.SwitchView;
 
 public class Referee extends AbstractReferee {
-    // Uncomment the line below and comment the line under it to create a Solo Game
     @Inject
     private SoloGameManager<Player> gameManager;
     @Inject
     private GraphicEntityModule graphicEntityModule;
+    @Inject
+    private TooltipModule tooltipModule;
 
     private Board board;
     private Robot robot;
@@ -48,14 +50,14 @@ public class Referee extends AbstractReferee {
             board.switches.add(new Switch(board, input[height + 4 + s], s));
         }
 
-        view = new BoardView(board, graphicEntityModule);
+        view = new BoardView(board, graphicEntityModule, tooltipModule);
         for (Switch s : board.switches) {
-            new SwitchView(board, view.boardGroup, s, graphicEntityModule);
+            new SwitchView(board, view.boardGroup, s, graphicEntityModule, tooltipModule);
         }
         for (Box b : board.boxes) {
-            new BoxView(board, view.boardGroup, b, graphicEntityModule);
+            new BoxView(board, view.boardGroup, b, graphicEntityModule, tooltipModule);
         }
-        new RobotView(view.boardGroup, robot, graphicEntityModule);
+        new RobotView(view.boardGroup, robot, graphicEntityModule, tooltipModule);
     }
 
     private Interpreter interpreter;
@@ -90,7 +92,7 @@ public class Referee extends AbstractReferee {
                 robot.view.kill();
             }
         } else if (board.target.hasBox()) {
-            if (gameMessage == null) gameMessage = "Fry was squashed by a box";
+            if (gameMessage == null) gameMessage = "Fry was squashed by a garbage ball";
             lost = true;
         }
         if (robot.cell == board.target) finished = true;
@@ -99,7 +101,6 @@ public class Referee extends AbstractReferee {
             if (interpreter == null) {
                 for (String s : gameManager.getTestCaseInput().get(0).split("\\|")) {
                     player.sendInputLine(s);
-                    System.err.println(s);
                 }
                 player.execute();
                 interpreter = new Interpreter(player.getOutputs().get(0), view.functionsGroup, graphicEntityModule);
@@ -112,7 +113,7 @@ public class Referee extends AbstractReferee {
             ;
         }
 
-        if (!interpreter.hasCommandsLeft) {
+        if (interpreter == null || !interpreter.hasCommandsLeft) {
             gameManager.loseGame("Invalid path");
             return;
         }
