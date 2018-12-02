@@ -56,8 +56,6 @@ public class BoardView {
         boardGroup.add(fry);
         Map<String, Object> params = new HashMap<>();
         params.put("Type", "Fry");
-        params.put("X", String.valueOf(board.target.x));
-        params.put("Y", String.valueOf(board.target.y));
         tooltip.registerEntity(fry, params);
     }
 

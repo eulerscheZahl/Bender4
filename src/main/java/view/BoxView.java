@@ -41,7 +41,6 @@ public class BoxView {
         Map<String, Object> params = new HashMap<>();
         params.put("Type", "Garbage ball");
         tooltip.registerEntity(sprite, params);
-        tooltip.updateExtraTooltipText(sprite, "X: " + box.cell.x + "\nY: " + box.cell.y);
     }
 
     public void update() {
@@ -71,7 +70,5 @@ public class BoxView {
         graphics.commitEntityState(0.9, sprite);
 
         location = box.cell;
-
-        tooltip.updateExtraTooltipText(sprite, "X: " + box.cell.x + "\nY: " + box.cell.y);
     }
 }

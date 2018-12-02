@@ -55,15 +55,11 @@ public class SwitchView {
         Map<String, Object> params = new HashMap<>();
         params.put("Type", "Switch");
         params.put("ID", String.valueOf(sw.switchID));
-        params.put("X", String.valueOf(sw.switchPos.x));
-        params.put("Y", String.valueOf(sw.switchPos.y));
         tooltip.registerEntity(switchSprite, params);
 
         params = new HashMap<>();
         params.put("Type", "Field");
         params.put("ID", String.valueOf(sw.switchID));
-        params.put("X", String.valueOf(sw.blockingPos.x));
-        params.put("Y", String.valueOf(sw.blockingPos.y));
         tooltip.registerEntity(coilFoot, params);
 
         updateTooltipState();

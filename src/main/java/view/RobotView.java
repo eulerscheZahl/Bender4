@@ -18,14 +18,12 @@ public class RobotView {
     private SpriteAnimation spark;
     private String[] spriteSheet;
     private GraphicEntityModule graphics;
-    private TooltipModule tooltip;
     private int lastDir = -1;
 
     public RobotView(Group boardGroup, Robot robot, GraphicEntityModule graphics, TooltipModule tooltip) {
         this.robot = robot;
         robot.view = this;
         this.graphics = graphics;
-        this.tooltip = tooltip;
 
         spriteSheet = Utils.loadSheet(graphics, "bender.png", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 8, 4);
         String[] sparkSheet = Utils.loadSheet(graphics, "spark.png", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 2, 1);
@@ -44,7 +42,6 @@ public class RobotView {
         Map<String, Object> params = new HashMap<>();
         params.put("Type", "Bender");
         tooltip.registerEntity(sprite, params);
-        tooltip.updateExtraTooltipText(sprite, "X: " + robot.cell.x + "\nY: " + robot.cell.y);
     }
 
     private boolean dead = false;
@@ -92,7 +89,5 @@ public class RobotView {
         }
         sprite.setX(BoardView.CELL_SIZE * robot.cell.x)
                 .setY(BoardView.CELL_SIZE * robot.cell.y);
-
-        tooltip.updateExtraTooltipText(sprite, "X: " + robot.cell.x + "\nY: " + robot.cell.y);
     }
 }

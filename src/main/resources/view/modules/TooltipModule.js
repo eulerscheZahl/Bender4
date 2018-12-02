@@ -57,7 +57,6 @@ function getMouseMoveFunc(tooltip, container, module) {
                 }
             }
 
-            ////setScale(1080.0 / (CELL_SIZE * (board.size + 2))).setX((ViewConstants.FrameRight - ViewConstants.FrameLeft - 1080) / 2 + ViewConstants.FrameLeft
             var cellsize = 48;
             var scale = HEIGHT / (cellsize * module.size);
             var y0 = 0;
@@ -70,8 +69,10 @@ function getMouseMoveFunc(tooltip, container, module) {
                 tooltip.visible = false;
                 return;
             }
+
             const tooltipBlocks = [];
-            var found = false;
+            tooltipBlocks.push("x: " + cellX);
+            tooltipBlocks.push("y: " + cellY);
 
             for (let show of showing) {
                 const entity = entityModule.entities.get(show);
@@ -85,7 +86,6 @@ function getMouseMoveFunc(tooltip, container, module) {
                             // check if the property/key is defined in the object itself, not in parent
                             if (params.hasOwnProperty(key)) {
                                 var txt = key + ": " + params[key];
-                                found = true;
                                 tooltipBlocks.push(txt);
                             }
                         }
@@ -97,25 +97,13 @@ function getMouseMoveFunc(tooltip, container, module) {
                     } else {
                         extra = module.currentFrame.extraText[show - 1];
                         if (extra && extra.length) {
-                            found = true;
                             tooltipBlock = extra;
                         }
                     }
                     tooltipBlocks.push(tooltipBlock);
-                    tooltipBlocks.push("");
                 }
-                //if(found) break;
-            }
-            if (!found) {
-                tooltipBlocks.push("x: " + cellX);
-                tooltipBlocks.push("y: " + cellY);
             }
 
-            for (var i = 0; i < tooltipBlocks.length; i++) {
-                for (var p = 0; p < playerList.length; p++) {
-                    tooltipBlocks[i] = tooltipBlocks[i].toString().replace("$" + p, playerList[p].name);
-                }
-            }
             tooltip.label.text = tooltipBlocks.join('\n');
 
             tooltip.background.width = tooltip.label.width + 20;
