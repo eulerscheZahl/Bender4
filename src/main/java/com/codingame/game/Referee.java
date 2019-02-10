@@ -82,6 +82,7 @@ public class Referee extends AbstractReferee {
 			robot.view.win();
 			view.win(); // Fry wins too
 			gameManager.getPlayer().execute();
+			gameManager.winGame(gameMessage);
 			return;
 		} else if (robot.cell.hasSwitch() && robot.cell.sw.isBlocking && robot.cell.sw.blockingPos == robot.cell) {
 			if (gameMessage == null) {
