@@ -28,8 +28,8 @@ public class FunctionView {
 			return; // most likely infinite recursion, don't show that
 		this.graphics = graphics;
 		this.function = functionExecution;
-		spriteSheet = Utils.loadSheet(graphics, "functions.png", IMAGE_SIZE, IMAGE_SIZE, 14, 14);
-		functionSheet = Utils.loadSheet(graphics, "functionbox.png", 630, 88, 2, 1);
+		spriteSheet = Utils.loadSheet(graphics, "functions.png", "g", IMAGE_SIZE, IMAGE_SIZE, 14, 14);
+		functionSheet = Utils.loadSheet(graphics, "functionbox.png", "h", 630, 88, 2, 1);
 
 		frame = Utils.createAnimation(graphics, functionSheet).setX(50).setY(80 + 100 * depth).setZIndex(1);
 		functionsGroup.add(frame);

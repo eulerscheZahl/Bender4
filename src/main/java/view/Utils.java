@@ -10,12 +10,11 @@ import com.codingame.gameengine.module.entities.SpriteAnimation;
 public class Utils {
 	private static HashMap<String, String[]> spriteSheets = new HashMap<>();
 
-	public static String[] loadSheet(GraphicEntityModule graphics, String image, int width, int height, int imageCount, int rowCount) {
+	public static String[] loadSheet(GraphicEntityModule graphics, String image, String shortName, int width, int height, int imageCount, int rowCount) {
 		if (spriteSheets.containsKey(image))
 			return spriteSheets.get(image);
 
-		String name = String.valueOf((char) ('a' + spriteSheets.size()));
-		String[] sprites = graphics.createSpriteSheetSplitter().setSourceImage(image).setName(name).setWidth(width).setHeight(height).setImageCount(imageCount).setImagesPerRow(rowCount).setOrigCol(0).setOrigRow(0).split();
+		String[] sprites = graphics.createSpriteSheetSplitter().setSourceImage(image).setName(shortName).setWidth(width).setHeight(height).setImageCount(imageCount).setImagesPerRow(rowCount).setOrigCol(0).setOrigRow(0).split();
 
 		spriteSheets.put(image, sprites);
 		return sprites;
