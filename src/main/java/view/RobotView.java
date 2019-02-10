@@ -26,8 +26,8 @@ public class RobotView {
 		robot.view = this;
 		this.graphics = graphics;
 
-		spriteSheet = Utils.loadSheet(graphics, "bender.png", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 8, 4);
-		String[] sparkSheet = Utils.loadSheet(graphics, "spark.png", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 2, 1);
+		spriteSheet = Utils.loadSheet(graphics, "bender.png", "c", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 8, 4);
+		String[] sparkSheet = Utils.loadSheet(graphics, "spark.png", "d", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 2, 1);
 
 		sprite = Utils.createAnimation(graphics, new String[] { spriteSheet[1], spriteSheet[5] }).setX(BoardView.CELL_SIZE * robot.cell.x).setY(BoardView.CELL_SIZE * robot.cell.y);
 
@@ -45,14 +45,14 @@ public class RobotView {
 
 	public void kill() {
 		dead = true;
-		String[] fieldDeathSheet = Utils.loadSheet(graphics, "benderDeath.png", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 6, 6);
+		String[] fieldDeathSheet = Utils.loadSheet(graphics, "benderDeath.png", "e", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 6, 6);
 		sprite.setImages(fieldDeathSheet).play();
 		graphics.commitEntityState(0, sprite);
 		sprite.setLoop(false);
 	}
 
 	public void win() {
-		String[] victorySheet = Utils.loadSheet(graphics, "benderVictory.png", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 12, 4);
+		String[] victorySheet = Utils.loadSheet(graphics, "benderVictory.png", "f", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 12, 4);
 		sprite.setX(sprite.getX() + 14);
 		graphics.commitEntityState(0.1, sprite);
 		sprite.setImages(victorySheet).setDuration(Referee.FRAME_DURATION * 4).pause().setLoop(false);

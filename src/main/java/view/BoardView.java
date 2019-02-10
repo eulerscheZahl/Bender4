@@ -23,7 +23,7 @@ public class BoardView {
 	private SpriteAnimation fry;
 
 	public BoardView(Board board, GraphicEntityModule graphics, TooltipModule tooltip) {
-		wallSprites = Utils.loadSheet(graphics, "walls.png", CELL_SIZE, CELL_SIZE, 16, 4);
+		wallSprites = Utils.loadSheet(graphics, "walls.png", "j", CELL_SIZE, CELL_SIZE, 16, 4);
 		this.graphics = graphics;
 		tooltip.setSize(board.width);
 
@@ -54,7 +54,7 @@ public class BoardView {
 			}
 		}
 
-		String[] frySheet = Utils.loadSheet(graphics, "Fry.png", CELL_SIZE, CELL_SIZE, 2, 1);
+		String[] frySheet = Utils.loadSheet(graphics, "Fry.png", "k", CELL_SIZE, CELL_SIZE, 2, 1);
 		fry = Utils.createAnimation(graphics, frySheet).setX(board.target.x * CELL_SIZE).setY(board.target.y * CELL_SIZE);
 		boardGroup.add(fry);
 		Map<String, Object> params = new HashMap<>();
@@ -63,7 +63,7 @@ public class BoardView {
 	}
 
 	public void win() {
-		String[] victorySheet = Utils.loadSheet(graphics, "FryVictory.png", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 5, 5);
+		String[] victorySheet = Utils.loadSheet(graphics, "FryVictory.png", "l", BoardView.CELL_SIZE, BoardView.CELL_SIZE, 5, 5);
 		fry.setImages(victorySheet).setDuration(Referee.FRAME_DURATION * 2).pause().setLoop(false);
 		fry.setX(fry.getX() - 5);
 		graphics.commitEntityState(0.101, fry);
