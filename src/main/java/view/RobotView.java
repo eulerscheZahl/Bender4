@@ -57,7 +57,7 @@ public class RobotView {
 		graphics.commitEntityState(0.1, sprite);
 		sprite.setImages(victorySheet).setDuration(Referee.FRAME_DURATION * 4).pause().setLoop(false);
 		graphics.commitEntityState(0.101, sprite);
-		sprite.play();
+		sprite.reset().play();
 		graphics.commitEntityState(0.102, sprite);
 	}
 

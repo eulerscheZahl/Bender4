@@ -67,7 +67,7 @@ public class BoardView {
 		fry.setImages(victorySheet).setDuration(Referee.FRAME_DURATION * 2).pause().setLoop(false);
 		fry.setX(fry.getX() - 5);
 		graphics.commitEntityState(0.101, fry);
-		fry.play();
+		fry.reset().play();
 		graphics.commitEntityState(0.102, fry);
 	}
 
