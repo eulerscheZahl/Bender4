@@ -99,7 +99,8 @@ public class FunctionView {
 	}
 
 	public void terminate() {
-		functionGroup.setAlpha(0);
+		if (functionGroup != null)
+			functionGroup.setAlpha(0);
 		if (frame != null) {
 			frame.setAlpha(0);
 			graphics.commitEntityState(0, frame);
