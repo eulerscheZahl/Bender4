@@ -1,1 +1,1 @@
-See [CodinGame](https://www.codingame.com/contribute/view/16434130df4eb2238b2ae3d9f7ecef296a89).
+This is the referee for [Bender 4 on CodinGame](https://www.codingame.com/multiplayer/optimization/bender---episode-4).
